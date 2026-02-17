@@ -36,7 +36,7 @@ class TableAnnee(models.Model):
         return f'{self.annee_scolaire}'
       
 class TableNiveau(models.Model):
-    niveau = models.CharField(max_length=20, unique=True, verbose_name='Niveau')
+    niveau = models.CharField(max_length=50, unique=True, verbose_name='Niveau')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
 
     class Meta:
@@ -47,7 +47,7 @@ class TableNiveau(models.Model):
         return self.niveau
     
 class TableOption(models.Model):
-    option = models.CharField(max_length=20, unique=True, verbose_name='Option')
+    option = models.CharField(max_length=50, unique=True, verbose_name='Option')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
 
     class Meta:
@@ -58,7 +58,7 @@ class TableOption(models.Model):
         return self.option
     
 class TableRole(models.Model):
-    role = models.CharField(max_length=20, unique=True, verbose_name='Rôle')
+    role = models.CharField(max_length=50, unique=True, verbose_name='Rôle')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
 
     class Meta:
@@ -69,7 +69,7 @@ class TableRole(models.Model):
         return self.role
     
 class TablePermission(models.Model):
-    permission = models.CharField(max_length=20, unique=True, verbose_name='permission')
+    permission = models.CharField(max_length=50, unique=True, verbose_name='permission')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
 
     class Meta:
@@ -274,6 +274,10 @@ class TableRecouvrement(models.Model):
     d11 = models.DateField(null=True, blank=True, verbose_name="Date v.11")
     v12 = models.DecimalField(max_digits=10, decimal_places=0, default=0, blank=True, verbose_name="Vers. 12")
     d12 = models.DateField(null=True, blank=True, verbose_name="Date v.12")
+
+    class Meta:
+        verbose_name = "Recouvrement"
+        verbose_name_plural = "Recouvrements"
 
     def save(self, *args, **kwargs):
         if self.affectation and self.affectation.annee_aff and self.affectation.classe_aff:
