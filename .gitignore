@@ -1,0 +1,15 @@
+# Environnement virtuel
+.venv/
+__pycache__/
+*.py[cod]
+
+# Base de données locale
+db.sqlite3
+
+# Node / Next.js
+node_modules/
+.next/
+frontend/.env.local
+
+# Divers
+.DS_Store
