@@ -21,6 +21,7 @@ class EleveAdmin(admin.ModelAdmin):
 class ClasseAdmin(admin.ModelAdmin):
     list_display = ('code_classe', 'lib_classe', 'niveau_classe', 'option_classe')
     list_filter = ('niveau_classe', 'option_classe')
+    search_fields = ('lib_classe', 'code_classe')
 
 @admin.register(TableFraisScolarite)
 class FraisAdmin(admin.ModelAdmin):
@@ -32,10 +33,13 @@ class AffectationAdmin(admin.ModelAdmin):
     list_display = ('eleve_aff', 'classe_aff', 'annee_aff', 'etat_aff')
     list_filter = ('annee_aff', 'classe_aff', 'etat_aff')
     search_fields = ('eleve_aff__fullname', 'eleve_aff__matricule')
+    autocomplete_fields = ['eleve_aff', 'classe_aff', 'annee_aff']
 
 @admin.register(TableRecouvrement)
 class RecouvrementAdmin(admin.ModelAdmin):
     list_display = ('get_eleve', 'get_classe', 'total_paye', 'reduction')
+    search_fields = ('eleve_aff__fullname', 'eleve_aff__matricule')
+    autocomplete_fields = ['affectation']
     readonly_fields = ('frais_paiement', 'tranche1_paiement', 'tranche2_paiement', 'tranche3_paiement', 'total_paye')
     
     def get_eleve(self, obj):

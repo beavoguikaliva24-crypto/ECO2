@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from ecorys.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # On préfixe toutes les routes de l'application par 'api/'
     path('api/', include('ecorys.urls')), 
+    # Remplace TokenObtainPairView par ta LoginView
+    path('api/login/', LoginView.as_view(), name='login_custom'), 
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 # Très important pour afficher les photos des élèves en développement

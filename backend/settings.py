@@ -55,6 +55,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 # 3. Autorise ton frontend local (et plus tard ton URL Vercel)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

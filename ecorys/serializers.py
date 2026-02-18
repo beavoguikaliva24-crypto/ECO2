@@ -47,12 +47,13 @@ class EleveSerializer(serializers.ModelSerializer):
         read_only_fields = ('matricule', 'fullname', 'date_naissance')
 
 class ClasseSerializer(serializers.ModelSerializer):
+    # Pour afficher le nom dans le JSON
     niveau_nom = serializers.ReadOnlyField(source='niveau_classe.niveau')
     option_nom = serializers.ReadOnlyField(source='option_classe.option')
 
     class Meta:
         model = TableClasse
-        fields = '__all__'
+        fields = ['id', 'code_classe', 'lib_classe', 'niveau_classe', 'option_classe', 'niveau_nom', 'option_nom']
 
 class FraisScolariteSerializer(serializers.ModelSerializer):
     classe_libelle = serializers.ReadOnlyField(source='classe_fs.lib_classe')
