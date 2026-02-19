@@ -10,7 +10,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   // On récupère l'URL depuis le .env.local
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  //const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   // Extrait du handleSubmit dans app/login/page.tsx
 const handleSubmit = async (e: React.FormEvent) => {
@@ -18,8 +18,11 @@ const handleSubmit = async (e: React.FormEvent) => {
   setErrorMsg('');
   setIsLoading(true);
 
+  // --- AJOUTE CECI ICI ---
+  localStorage.clear(); // On vide tout avant de demander un nouveau token
+  // -----------------------
+
   try {
-    // Note: Utilise /api/login/ car c'est le préfixe dans ton urls.py global
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -29,21 +32,17 @@ const handleSubmit = async (e: React.FormEvent) => {
     const data = await res.json();
 
     if (res.ok) {
-      // 1. On stocke les tokens pour les futurs appels API
       localStorage.setItem('token', data.access);
       localStorage.setItem('refresh', data.refresh);
-      
-      // 2. On stocke les infos utilisateur pour le Dashboard
       localStorage.setItem('user', JSON.stringify(data.user));
       
-      // 3. On redirige
       router.push('/dashboard');
     } else {
-      // On utilise le message d'erreur précis venant de Django
-      setErrorMsg(data.error || 'Identifiants incorrects ou compte inactif.');
+      // Si Django renvoie une erreur (ex: compte inactif ou mauvais mot de passe)
+      setErrorMsg(data.error || 'Identifiants incorrects.');
     }
   } catch (err) {
-    setErrorMsg('Erreur de communication avec le serveur (CORS ou Serveur éteint).');
+    setErrorMsg('Impossible de joindre le serveur. Vérifiez que Django est lancé.');
   } finally {
     setIsLoading(false);
   }

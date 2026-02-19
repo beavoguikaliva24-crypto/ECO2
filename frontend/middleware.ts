@@ -10,9 +10,9 @@ export function middleware(request) {
   }
 
   // 2. Optionnel : Empêcher l'accès au dashboard sans token
-  // if (pathname.startsWith('/dashboard') && !token) {
-  //   return NextResponse.redirect(new URL('/login', request.url));
-  // }
+  if (pathname.startsWith('/dashboard') && !token) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
 
   return NextResponse.next();
 }

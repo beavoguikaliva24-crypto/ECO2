@@ -1,13 +1,11 @@
     "use client";
     import Link from 'next/link';
     import { usePathname, useRouter } from 'next/navigation';
-    import { useEffect, useState } from "react";
 
 
     export default function Sidebar() {
     const pathname = usePathname();
     const router = useRouter();
-    const [user, setUser] = useState(null);
 
     const handleLogout = () => {
         localStorage.removeItem('user'); // On vide la session
@@ -23,7 +21,7 @@
 
     return (
         <div className="w-50 bg-slate-900 h-screen text-white flex flex-col p-2 shadow-xl">
-        <div className="text-xl font-bold mb-4 text-blue-400 px-2 border-b border-slate-700 pb-4">
+        <div className="text-lg font-bold mb-4 text-blue-400 px-2 border-b border-slate-700 pb-4">
             ECO2 MANAGER
         </div>
         <nav className="flex-1 space-y-2">
